@@ -1,14 +1,17 @@
 import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
-
+import useAdmin from '../hooks/useAdmin'
 const Navbar = ({ children }) => {
     const [dark, setDark] = useState(false);
+    const [admin] = useAdmin();
     return (
         <div>
             <div className="drawer drawer-end" data-theme={dark ? "dark" : "light"}>
                 <input id="my-drawer-3" type="checkbox" className="drawer-toggle" />
                 <div className="drawer-content flex flex-col">
                     <div className="w-full navbar bg-base-100 fixed top-0 lg:px-20">
+                        <label htmlFor="my-drawer-2" className="btn btn-primary drawer-button lg:hidden">Open drawer</label>
+
                         <div className="flex-1 px-2 mx-2">Clean Co.</div>
                         <div className="flex-none lg:hidden">
                             <label htmlFor="my-drawer-3" className="btn btn-square btn-ghost">
@@ -18,6 +21,7 @@ const Navbar = ({ children }) => {
                         <div className="flex-none hidden lg:block">
                             <ul className="menu menu-horizontal gap-x-2">
                                 <li><NavLink to='/' className='rounded-lg'>Home</NavLink></li>
+                                {admin && <li><NavLink to='/dashboard' className='rounded-lg'>Dashboard</NavLink></li>}
                                 <li><NavLink to='/about' className='rounded-lg'>About</NavLink></li>
                                 <li><NavLink to='/services' className='rounded-lg'>Services</NavLink></li>
                                 <li><NavLink to='/contact' className='rounded-lg'>Contact</NavLink></li>
@@ -47,17 +51,30 @@ const Navbar = ({ children }) => {
                 <div class='drawer-side'>
                     <label for='my-drawer-3' class='drawer-overlay'></label>
                     <ul class='menu p-4 overflow-y-auto w-80 bg-base-100'>
-                        <li>
-                            <a>Sidebar Item 1</a>
-                        </li>
-                        <li>
-                            <a>Sidebar Item 2</a>
-                        </li>
+                        <li><NavLink to='/' className='rounded-lg'>Home</NavLink></li>
+                        <li><NavLink to='/about' className='rounded-lg'>About</NavLink></li>
+                        <li><NavLink to='/services' className='rounded-lg'>Services</NavLink></li>
+                        <li><NavLink to='/contact' className='rounded-lg'>Contact</NavLink></li>
+                        <li><NavLink to='/login' className='rounded-lg'>Login</NavLink></li>
+                        <div tabIndex={0} className="collapse collapse-arrow border border-base-300 bg-base-100 rounded-box">
+                            <div className="collapse-title text-xl font-medium btn btn-outline btn-primary">
+                                BOOK NOW
+                            </div>
+                            <div className="collapse-content">
+                                <li><NavLink to='/contact' className='rounded-lg'>Quick Book</NavLink></li>
+                                <li><NavLink to='/login' className='rounded-lg'>Pre Book</NavLink></li>
+                            </div>
+                        </div>
                     </ul>
                 </div>
             </div>
         </div>
     );
 };
+
+
+//53.46 sec video 2
+
+
 
 export default Navbar;
